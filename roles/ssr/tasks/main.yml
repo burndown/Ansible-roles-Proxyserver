@@ -1,0 +1,30 @@
+- name: install ssr and copy configure
+  git:
+    repo: 'https://github.com/burndown/shadowsocksr.git'
+    dest: ssr
+    version: manyuser
+  register: ssrinstall
+
+- name: init ssr
+  command: chdir=/root/ssr bash initcfg.sh
+
+
+- name: copy ssr 
+  command: cp -r /root/ssr/ /etc/
+
+- name: upload configure
+  copy:
+    src: ssr-config.json
+    dest: /etc/ssr/shadowsocks/user-config.json
+
+- name: upload systemctl for ssr 
+  copy:
+    src: ssr.service
+    dest: /etc/systemd/system
+    mode: 0755
+
+- name: enable ssr 
+  command: systemctl enable ssr 
+
+- name: run ssr 
+  command: systemctl start ssr 

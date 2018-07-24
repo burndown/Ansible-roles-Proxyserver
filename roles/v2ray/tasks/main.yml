@@ -1,0 +1,20 @@
+- name: get v2ray install script
+  get_url:
+    url: https://install.direct/go.sh
+    dest: /root/v2ray.sh
+ 
+- name: install v2ray package
+  command: bash /root/v2ray.sh
+  register: v2rayinstall
+
+- name: copy v2ray configure file
+  copy: 
+    src: v2ray-config.json
+    dest: /etc/v2ray/config.json
+    backup: yes
+
+- name: enable v2ray service
+  command: systemctl enable v2ray 
+
+- name: start v2ray service
+  command: systemctl start v2ray 

@@ -1,0 +1,81 @@
+{
+  "log" : {
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "debug"
+  },
+  "inbound": {
+    "port": 419,
+    "listen": "127.0.0.1",
+    "protocol": "vmess",
+    "allocate": {
+       "strategy": "always"
+       },
+    "settings": {
+      "udp": true,
+      "clients": [
+        {
+          "id": "a9227c2b-08e0-4e45-a844-7b3ad3a23405",
+          "alterId": 1000,
+         "security": "aes-128-gcm"
+        },
+       {
+          "id": "e3fb54c4-d812-4214-89a3-e1ad8b1a3e76",
+          "level": 1,
+          "alterId": 64,
+          "email": "heigao@t.tt"
+        }
+      ]
+    },
+    "streamSettings": {
+      "network": "ws",
+      "security": "auto",
+      "wsSettings": {
+          "connectionReuse": true,
+          "path": "/",
+          "headers":{
+            "Host": "www.chinadream.com" 
+            }
+           }
+         }
+  },  
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {}
+  },
+  "outboundDetour": [
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "strategy": "rules",
+    "settings": {
+      "rules": [
+        {
+          "type": "field",
+          "ip": [
+            "0.0.0.0/8",
+            "10.0.0.0/8",
+            "100.64.0.0/10",
+            "127.0.0.0/8",
+            "169.254.0.0/16",
+            "172.16.0.0/12",
+            "192.0.0.0/24",
+            "192.0.2.0/24",
+            "192.168.0.0/16",
+            "198.18.0.0/15",
+            "198.51.100.0/24",
+            "203.0.113.0/24",
+            "::1/128",
+            "fc00::/7",
+            "fe80::/10"
+          ],
+          "outboundTag": "blocked"
+        }
+      ]
+    }
+  }
+}

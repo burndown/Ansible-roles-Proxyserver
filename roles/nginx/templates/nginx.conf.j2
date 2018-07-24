@@ -1,0 +1,30 @@
+server {
+        listen {{ nginx.listen_port }} default_server;
+
+        root /var/www/html;
+
+        server_name {{ proxy_domain1 }} {{ proxy_domain2 }};
+    
+      location / {
+      proxy_redirect off;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Host $http_host;
+      if ($http_host = "www.chinadream.com"){
+           proxy_pass http://127.0.0.1:419;
+           }
+     if ($host = nas.{{ proxy_domain1 }}){
+           proxy_pass http://127.0.0.1:8080;
+           }
+     if ($host = web.{{ proxy_domain1 }}){
+           proxy_pass http://127.0.0.1:8080;
+           }
+     if ($host = rot.{{ proxy_domain1 }}){
+           proxy_pass http://127.0.0.1:8080;
+           }
+     if ($host = hw.{{ proxy_domain1 }}){
+           proxy_pass http://127.0.0.1:8080;
+           }
+      }
+}

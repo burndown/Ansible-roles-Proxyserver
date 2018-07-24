@@ -1,0 +1,28 @@
+- name: add Cerbot repo in apt
+  apt_repository: 
+    repo: ppa:certbot/certbot
+
+- name: install nginx and certbox package
+  apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
+  with_items:
+    - nginx
+    - unzip
+    - python-certbot-nginx
+
+- name: remove existing nginx configure file 
+  command: mv {{ nginx.config_file }} {{ nginx.config_file }}.bak
+
+- name: copy nginx configure file from template
+  template:
+    src: "nginx.conf.j2"
+    dest: "{{ nginx.config_file }}"
+  notify: reload nginx 
+
+- name: create ssl for nginx 
+  command: certbot --nginx -d {{ proxy_domain1 }} -d {{ proxy_domain2 }} -n --email example@gmail.com --agree-tos --no-redirect
+  notify: reload nginx 
+
+- name: copy html template to proxy server
+  unarchive:
+    src: web-template.zip
+    dest: /var/www/html/

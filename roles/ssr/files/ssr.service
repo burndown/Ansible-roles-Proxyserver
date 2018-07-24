@@ -1,0 +1,15 @@
+[Unit]
+Description=ssr daemon
+After=syslog.target  network.target
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /etc/ssr/shadowsocks/server.py -c /etc/ssr/shadowsocks/user-config.json
+Restart= always
+RestartSec=1min
+ExecStop=/usr/bin/killall ssr
+
+
+[Install]
+WantedBy=multi-user.target

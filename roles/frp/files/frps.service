@@ -1,0 +1,19 @@
+[Install]
+WantedBy=multi-user.target
+
+
+[Unit]
+Description=frpc daemon
+After=syslog.target  network.target
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/frps -c /etc/frps/frps.ini
+Restart= always
+RestartSec=1min
+ExecStop=/usr/bin/killall frps
+
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,4 @@
+---
+# handlers file for heigao.nginx
+- name: reload nginx
+  service: name=nginx state=reloaded

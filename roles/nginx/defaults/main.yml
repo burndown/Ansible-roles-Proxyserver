@@ -1,0 +1,7 @@
+proxy_domain1: xxxx.com
+proxy_domain2: www.xxxx.com
+
+nginx:
+  listen_port: 2222
+  config_file: /etc/nginx/sites-available/default
+

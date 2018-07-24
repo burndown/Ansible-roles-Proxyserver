@@ -1,0 +1,40 @@
+- name: download frp
+  get_url:
+    url: https://github.com/fatedier/frp/releases/download/v0.20.0/frp_0.20.0_linux_amd64.tar.gz
+    dest: /root/
+
+- name: get frp from github
+  unarchive:
+    src: /root/frp_0.20.0_linux_amd64.tar.gz
+    dest: /root/
+    remote_src: True
+
+- name: copy frps to usr
+  copy:
+    src: /root/frp_0.20.0_linux_amd64/frps
+    dest: /usr/local/bin
+    mode: 0755
+    remote_src: True
+
+- name: create folder
+  file:
+    path: /etc/frps
+    state: directory
+
+- name: copy configure file
+  copy:
+    src: frps.ini
+    dest: /etc/frps
+
+
+- name: copy systemd file
+  copy:
+    src: frps.service
+    dest: /etc/systemd/system/
+    mode: 0755
+
+- name: enable frp 
+  command: systemctl enable frps
+
+- name: start frp 
+  command: systemctl start frps

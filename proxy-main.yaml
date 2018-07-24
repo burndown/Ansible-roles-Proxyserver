@@ -1,0 +1,9 @@
+- name: install proxy server in VPS
+  hosts: proxy
+  gather_facts: false
+  roles:
+    - role: pre-task
+    - role: nginx
+    - role: ssr
+    - role: v2ray
+    - role: frp
