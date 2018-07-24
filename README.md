@@ -18,4 +18,5 @@ certbot is used to create SSL.
 How to use it:
 
 Ansible version >= 2.4
+
 when use the playbook, remember replace domain name in roles-nginx-default-"nginx proxy domain name" to your own domain name
