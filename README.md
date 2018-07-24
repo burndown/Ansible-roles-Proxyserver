@@ -1,7 +1,7 @@
 # ansible-proxyserver
 Ansible playbook for proxyserver
 
-In this Playbook, 4 components are installed on VPS, they are: 
+In this Playbook, 4 components are installed on Ubuntu, they are: 
  - nginx, wroking as front-end proxy 
  - ssr and v2ray working as scientist tools
  - frp working as reverse proxy to help you expose a local server behind a NAT or firewall to the internet.
