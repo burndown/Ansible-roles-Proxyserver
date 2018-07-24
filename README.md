@@ -8,7 +8,7 @@ In this Playbook, 4 components are installed on Ubuntu, they are:
  
 How it works:
 
-SSR listen on 80 port, v2ray listen on 443 port, nginx listen on 2222, when SSR and v2ray receive normal request, it will work normally to help u bypass the GFW. when they receive http or https, the traffic will redirect to nginx, nginx works as web server and  display a static webpage. 
+SSR listen on 80 port, nginx listen on 2222 and 443, when SSR receive normal request, it will work normally to help u bypass the GFW. when Nginx receive request with header - "www.chinadream", it will redirect the request to v2ray, who will process it and help u bypass the firewall, when ssr receive http request and nginx receive https without correct header(chinadream), the traffic will fall back to nginx, when nginx works as web server and  display a static webpage. 
 
 
 frp is used for nas and home router.
@@ -19,4 +19,4 @@ How to use it:
 
 Ansible version >= 2.4
 
-when use the playbook, remember replace domain name in roles-nginx-default-"nginx proxy domain name" to your own domain name
+before use the playbook, remember replace proxy domain name in var, which locate in roles/nginx/default/main.yml to your own domain name
