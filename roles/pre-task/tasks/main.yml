@@ -1,2 +1,0 @@
-- name: install python
-  raw: apt update && apt install python -y

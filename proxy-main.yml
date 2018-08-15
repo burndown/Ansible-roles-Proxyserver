@@ -1,8 +1,10 @@
 - name: install proxy server in VPS
   hosts: proxy
   gather_facts: false
+  pre_task:
+    - name: install Python
+      raw: apt update && apt install python -y
   roles:
-    - role: pre-task
     - role: nginx
     - role: ssr
     - role: v2ray
