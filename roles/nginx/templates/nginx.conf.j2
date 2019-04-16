@@ -6,6 +6,7 @@ server {
         server_name {{ proxy_domain1 }} {{ proxy_domain2 }};
     
       location / {
+	  proxy_ssl_server_name on;
       proxy_redirect off;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
@@ -27,4 +28,10 @@ server {
            proxy_pass http://127.0.0.1:8080;
            }
       }
+     if ($host = ad.{{ proxy_domain1 }}){
+           proxy_pass http://127.0.0.1:7050;
+           }
+     if ($host = pve.{{ proxy_domain1 }}){
+           proxy_pass https://pve.{{ proxy_domain1 }}:1443;
+           }	 
 }
